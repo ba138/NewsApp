@@ -36,8 +36,8 @@ class NewsController extends GetxController {
   }
 
   @override
-  void onClose() {
+  void onInit() {
     getNews();
-    super.onClose();
+    super.onInit();
   }
 }

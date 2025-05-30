@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:newapp/controllers/news_controller.dart';
+import 'package:newapp/screens/tags_screen.dart';
 
 class HeadlineScreen extends StatelessWidget {
   const HeadlineScreen({super.key});
@@ -13,6 +14,12 @@ class HeadlineScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text("Headlines"),
         actions: [
+          IconButton(
+            icon: const Icon(Icons.tag),
+            onPressed: () {
+              Get.to(() => TagsScreen());
+            },
+          ),
           IconButton(
             icon: const Icon(Icons.refresh),
             onPressed: () {

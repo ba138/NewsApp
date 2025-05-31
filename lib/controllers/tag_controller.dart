@@ -14,6 +14,8 @@ class TagController extends GetxController {
         "technology",
       ].obs;
   var selectedTag = "all categories".obs;
+  var url =
+      "https://newsapi.org/v2/top-headlines?category=business&apiKey=27d8f52545e2483a930414e1ecf3260e";
   void updateSelectedTag(String tag) {
     selectedTag.value = tag;
     debugPrint("Selected Tag: ${selectedTag.value}");

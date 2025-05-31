@@ -34,10 +34,11 @@ class TagsScreen extends StatelessWidget {
                   var category = controller.tags[index];
                   return InkWell(
                     onTap: () {
-                      controller.updateSelectedTag(category);
-                      debugPrint(
-                        "Selected Tag: ${controller.selectedTag.value}",
-                      );
+                      controller.getTags(category);
+                      // controller.updateSelectedTag(category);
+                      // debugPrint(
+                      //   "Selected Tag: ${controller.selectedTag.value}",
+                      // );
                     },
                     child: Obx(
                       () => Container(
@@ -68,6 +69,59 @@ class TagsScreen extends StatelessWidget {
               );
             }),
           ),
+          Obx(() {
+            if (controller.isLoading.value) {
+              return Center(child: CircularProgressIndicator());
+            } else if (controller.tagNews.isEmpty) {
+              return Text("No News available");
+            }
+            return Expanded(
+              child: ListView.builder(
+                itemCount: controller.tagNews.length,
+                itemBuilder: (context, index) {
+                  return Container(
+                    margin: const EdgeInsets.all(10),
+                    height: 250,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.black.withValues(alpha: 0.4),
+                    ),
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: Image.network(
+                              controller.tagNews[index].urlToImage ?? '',
+                              fit: BoxFit.cover,
+                              height: 150,
+                              width: double.infinity,
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                controller.tagNews[index].title.length > 20
+                                    ? "${controller.tagNews[index].title.substring(0, 20)}..."
+                                    : controller.tagNews[index].title,
+                              ),
+                              Text(controller.tagNews[index].publishedAt),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              ),
+            );
+          }),
         ],
       ),
     );
